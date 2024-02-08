@@ -53,7 +53,9 @@ public class CrossReverse {
 
             for(int i=0; i < cur.length(); i++) {
                 String next = click(cur, i);
-                if(next.equals("111111111")) return answer > cnt+1 ? cnt+1 : answer;
+                if(next.equals("111111111")) {
+                    return cnt +1;
+                };
 
                 if(!isDup[Integer.parseInt(next,2)]) {
                     que.offer(new String[]{next, String.valueOf(cnt+1)});
