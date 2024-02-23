@@ -29,14 +29,152 @@ package baekjoon;
  */
 public class StringExplosion {
 
+    static String boyermoore(String text, String pattern, int idx) {
+
+        if(text.indexOf(pattern) < 0) return text;
+        int textLen = text.length();
+
+        int patternLen = pattern.length();
+        int[] skipTable = new int[Character.MAX_VALUE + 1]; // 건너뛰기 표
+
+        int pt = 0;  // text pointer
+        int pp = 0; // pattern pointer
+
+//        abcccdab
+//        ccd
+//        [STEP1] skipTable [3,3,3,3,3,3,3,3,3,3,3...]
+//        [STEP2] [3,3,3,2,3..] -> [3,3,1,2,3..] -> [3,3,0,2,3]
+//
+//
+        // STEP1 :: skipTable 초기화
+        for(pt = 0; pt <= Character.MAX_VALUE; pt++) {
+            skipTable[pt] = patternLen;
+        }
+
+        // STEP2
+        for(pt = 0; pt < patternLen -1; pt++) {
+            skipTable[pattern.charAt(pt)] = patternLen-pt-1;
+        }
+
+//        int idx = -1;
+
+        Loop1:
+        while(pt < textLen) {
+            pp = patternLen - 1;
+
+            Loop2:
+            while(text.charAt(pt) == pattern.charAt(pp)) {
+                if(pp == 0) {
+                    idx = pt;
+                    break Loop1;
+                }
+                pp--;
+                pt--;
+            }
+            pt += (skipTable[text.charAt(pt)] > patternLen - pp) ? skipTable[text.charAt(pp)] : patternLen - pp;
+        }
+
+        if(idx > -1) {
+            System.out.println(idx);
+            System.out.println(text);
+        } else {
+            return " idx == -1";
+        }
+
+
+        if(idx < textLen && idx > -1) {
+            String next = text.substring(0, idx) + text.substring(idx + patternLen);
+            System.out.println("TEXT : "+ next);
+            if(next.length() < 1) {
+                return "FRULA";
+            } else if(idx > -1) {
+                boyermoore(next, pattern, idx);
+                return next;
+            }
+                    }
+
+        if(text.length() < 1) {
+            return "FRULA";
+        } else if(idx > -1) {
+            boyermoore(text, pattern, idx);
+            return text;
+        }
+
+        System.out.println(text + " ::::: ?!?!?");
+        return text;
+    }
+
+//    static int boyermoore(String text, String pattern) {
+//        int textLen = text.length();
+//
+//        int patternLen = pattern.length();
+//        int[] skipTable = new int[Character.MAX_VALUE + 1]; // 건너뛰기 표
+//
+//        int pt = 0;  // text pointer
+//        int pp = 0; // pattern pointer
+//
+////        abcccdab
+////        ccd
+////        [STEP1] skipTable [3,3,3,3,3,3,3,3,3,3,3...]
+////        [STEP2] [3,3,3,2,3..] -> [3,3,1,2,3..] -> [3,3,0,2,3]
+////
+////
+//        // STEP1 :: skipTable 초기화
+//        for(pt = 0; pt <= Character.MAX_VALUE; pt++) {
+//            skipTable[pt] = patternLen;
+//        }
+//
+//        // STEP2
+//        for(pt = 0; pt < patternLen -1; pt++) {
+//            skipTable[pattern.charAt(pt)] = patternLen-pt-1;
+//        }
+//        while(pt < textLen) {
+//            pp = patternLen - 1;
+//
+//            while(text.charAt(pt) == pattern.charAt(pp)) {
+//                if(pp == 0) {
+//                    return pt;
+//                }
+//                pp--;
+//                pt--;
+//            }
+//            pt += (skipTable[text.charAt(pt)] > patternLen - pp) ? skipTable[text.charAt(pp)] : patternLen - pp;
+//        }
+//
+//        return -1;
+//    }
+
     static String solution(String[] arr) {
-        return "";
+        String base = arr[0];
+        String bomb = arr[1];
+//        = boyermoore(base, bomb);
+////        int idx =  boyermoore(base, bomb);
+//
+//
+//        while(base.length() > 0) {
+//
+//            idx = boyermoore(base, bomb);
+//
+//            if(idx < 0) return text;
+//            text = text.substring(0, idx) + text.substring(idx+bomb.length());
+//
+//            if(text.length() < 1) {
+//                return "FRULA";
+//            }
+//
+//        }
+//        System.out.println("얍" + boyermoore("mirkovnizC4", "C4"));
+        return "[return]" + boyermoore(base, bomb, -1);
+
+//        return boyermoore(base, bomb);
     }
 
     public static void main(String[] args) {
         StringExplosion stringExplosion = new StringExplosion();
 
-        System.out.println(stringExplosion.solution(new String[]{"mirkovC4nizCC44", "C4"})); // mirkovniz
-        System.out.println(stringExplosion.solution(new String[]{"12ab112ab2ab", "12ab"}));// FRULA
+        System.out.println("answer :: " +stringExplosion.solution(new String[]{"mirkovC4nizCC44", "C4"})); // mirkovniz
+        System.out.println("answer :: " +stringExplosion.solution(new String[]{"mirkovnizC4", "C4"})); // mirkovniz
+        System.out.println("answer :: " +stringExplosion.solution(new String[]{"12ab112ab2ab", "12ab"}));// FRULA
+        System.out.println("answer :: " +stringExplosion.solution(new String[]{"12ab", "12cd"}));// FRULA
     }
 }
