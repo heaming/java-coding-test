@@ -156,7 +156,7 @@ public class StringExplosion {
 //            idx = boyermoore(base, bomb);
 //
 //            if(idx < 0) return text;
-//            text = text.substring(0, idx) + text.substring(idx+bomb.length());
+//            text = text.substring(0, idx) + text.su;;;;Lbstring(idx+bomb.length());
 //
 //            if(text.length() < 1) {
 //                return "FRULA";
