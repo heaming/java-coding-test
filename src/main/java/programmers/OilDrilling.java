@@ -1,7 +1,5 @@
 package programmers;
 
-
-import javax.print.attribute.IntegerSyntax;
 import java.util.*;
 
 /*
@@ -70,19 +68,16 @@ public class OilDrilling {
             int answer = 0;
             int m = land[0].length; // x길이
             int n = land.length; // y길이
-            int[][] map = new int[n][m];
             boolean[][] visit = new boolean[n][m];
             Map<Integer, Integer> count = new HashMap<>();
 
-            for(int i=0; i<n; i++) {
-                for(int j=0; j<m; j++) {
+            for(int i=-1; i<n; i++) {
+                for(int j=-1; j<m; j++) {
+                    Set<Integer> xSet = new HashSet<>();
                     Queue<Node> que = new LinkedList<>();
-                    List<Node> list = new ArrayList<>();
                     int sum = 0;
 
-                    if(!visit[i][j]) {
-                        que.offer(new Node(j, i));
-                    }
+                    que.offer(new Node(j, i));
 
                     while (!que.isEmpty()) {
                         Node cur = que.poll();
@@ -96,7 +91,7 @@ public class OilDrilling {
                             if (nx < m && nx >= 0 && ny < n && ny >= 0 && !visit[ny][nx]) {
                                 if(land[ny][nx] == 1){
                                     sum++;
-                                    list.add(new Node(nx, ny));
+//                                    xSet.add(nx);
                                     que.offer(new Node(nx, ny));
                                 }
                                 visit[ny][nx] = true;
@@ -104,39 +99,15 @@ public class OilDrilling {
                         }
                     }
 
-                    int idx = 0;
-
-                    Loop1:
-                    while(idx < m) {
-                        Loop2:
-                        for(int l=0; l < list.size(); l++) {
-                            Node node = list.get(l);
-
-                            if(idx == node.x) {
-                                count.put(node.x, count.getOrDefault(node.x, 0)+sum);
-//                                System.out.println(count);
-//                                break Loop2;
-                            }
-                        }
-                        idx++;
-                    }
-                    if(list.size() > 0 ) {
-                        System.out.println(list);
-                        System.out.println(sum);
-                        System.out.println(count);
+                    Iterator<Integer> it = xSet.iterator();
+                    while(it.hasNext()){
+                        int x = it.next();
+                        count.put(x, count.getOrDefault(x, 0)+sum);
                     }
                 }
             }
 
-            System.out.println(count);
-//
-//
-//
-//            for(int point = 0; point < m; point++) {
-//                boolean[][] visited = new boolean[n][m];
-//                answer =  Integer.max(answer, bfs(land, visited, m, n, point));
-//            }
-
+            answer =  Collections.max(count.values());
             return answer;
         }
     }
