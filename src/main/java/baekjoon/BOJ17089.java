@@ -34,7 +34,7 @@ import java.util.*;
 6 {2,3}
 7 {1}
  */
-public class ThreeFriends {
+public class BOJ17089 {
 
     static int solution(int people, int rels, int[][] relations) {
         int answer = Integer.MAX_VALUE;
@@ -87,7 +87,7 @@ public class ThreeFriends {
 
 
     public static void main(String[] args) {
-        ThreeFriends threeFriends = new ThreeFriends(); // 2
+        BOJ17089 threeFriends = new BOJ17089(); // 2
 
         System.out.println(threeFriends.solution(5, 6, new int[][]{{1,2}, {1,3}, {2,3}, {2,4}, {3,4},{4,5}})); // 2
         System.out.println(threeFriends.solution(7,4, new int[][]{{2,1},{3,6},{6,2},{1,7}})); // -1

@@ -1,12 +1,10 @@
 package baekjoon;
 
-import java.util.Arrays;
-
 /*
 * @Title: A와 B
 * @Link: https://www.acmicpc.net/problem/12919
 * * */
-public class AAndB {
+public class BOJ12919 {
 
     static boolean answer = false;
 
@@ -36,7 +34,7 @@ public class AAndB {
     }
 
     public static void main(String[] args) {
-        AAndB aAndB = new AAndB();
+        BOJ12919 aAndB = new BOJ12919();
 
         System.out.println(aAndB.solution("A", "BABA")); // 1
         answer = false;
