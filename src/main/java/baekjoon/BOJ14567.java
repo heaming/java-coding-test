@@ -1,6 +1,5 @@
 package baekjoon;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 /*
@@ -25,7 +24,7 @@ import java.util.*;
         2 5
         4 5 -> 1 2 2 1 3 1
  * */
-public class Prerequisite {
+public class BOJ14567 {
 
     static int[] answer;
 
@@ -104,7 +103,7 @@ public class Prerequisite {
     }
 
     public static void main(String[] args) {
-        Prerequisite prerequisite = new Prerequisite();
+        BOJ14567 prerequisite = new BOJ14567();
 
         System.out.println(Arrays.toString(prerequisite.solution(3,2, new int[][]{{2,3},{1,2}}))); // 1 2 3
         System.out.println(Arrays.toString(prerequisite.solution(6,4, new int[][]{{1,2},{1,3},{2,5},{4,5}}))); // 1 2 2 1 3 1

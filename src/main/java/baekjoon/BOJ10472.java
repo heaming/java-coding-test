@@ -1,13 +1,12 @@
 package baekjoon;
 
 import java.util.*;
-import java.util.stream.Collectors;
 /*
 @Title: 십자 뒤집기
 @Link: https://www.acmicpc.net/problem/10472
  */
 
-public class CrossReverse {
+public class BOJ10472 {
 
     static String changeToBinary(String[] boards) {
         String bit = "";
@@ -68,7 +67,7 @@ public class CrossReverse {
     }
 
     public static void main(String[] args) {
-        CrossReverse crossReverse = new CrossReverse();
+        BOJ10472 crossReverse = new BOJ10472();
 
         System.out.println(crossReverse.solution(new String[]{"*..", "**.", "*.."})); // 1
         System.out.println("*********");
