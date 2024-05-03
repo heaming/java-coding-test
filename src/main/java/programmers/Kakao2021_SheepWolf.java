@@ -8,95 +8,35 @@ package programmers;
 import java.util.*;
 
 public class Kakao2021_SheepWolf {
-
-    static List<Info>[] lists;
-    static int[] dist;
-    static int cnt;
-
-    static class Node {
-        int idx;
-        int dist;
-
-        public Node(int idx, int dist) {
-            this.idx = idx;
-            this.dist = dist;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "idx=" + idx +
-                    ", dist=" + dist +
-                    '}';
-        }
-    }
-
-    static class Info {
-        int to;
-        int dist;
-
-        public Info(int to, int dist) {
-            this.to = to;
-            this.dist = dist;
-        }
-
-        @Override
-        public String toString() {
-            return "Info{" +
-                    "to=" + to +
-                    ", dist=" + dist +
-                    '}';
-        }
-    }
-
-    static void dijks(int start) {
-        PriorityQueue<Node> que = new PriorityQueue<>(Comparator.comparingInt(o -> o.dist));
-        // 루트 노드에는 항상 양이 있음
-        que.offer(new Node(start, 0));
-        dist[start] = 0;
-
-        while(!que.isEmpty()) {
-            Node node = que.poll();
-
-            if(node.dist != dist[node.idx]) continue;
-
-            for(Info info : lists[node.idx]) {
-                if(dist[node.idx] >= dist[info.to]) continue;
-
-                if(dist[info.to] == 0) cnt++;
-                dist[info.to] = dist[node.idx];
-                que.offer(new Node(info.to, dist[info.to]));
-            }
-        }
-    }
-
     static class Solution {
+        static List<Integer>[] list;
+        static int[] info;
+        static int[][] dy; // 0 dfs // 1 bfs
+
+        static void dfs(int x, int prev) {
+//            dy[x][0]
+
+        }
+
+        static void bfs() {
+
+        }
+
         public int solution(int[] info, int[][] edges) {
             int answer = 0;
 
-            int infoLen = info.length;
-
-            lists = new ArrayList[infoLen];
-            dist = new int[infoLen];
-            for(int i=0; i<infoLen; i++) {
-                lists[i] = new ArrayList<>();
+            list = new ArrayList[info.length];
+            Solution.info = info;
+            for(int i=0; i<list.length; i++) {
+                list[i] = new ArrayList<>();
             }
 
-            for(int[] edge: edges) {
-                lists[edge[0]].add(new Info(edge[1], info[edge[1]]));
+            for(int[] edge : edges) {
+                list[edge[0]].add(edge[1]);
             }
 
-            for(List<Info> i : lists) {
-                System.out.println(i);
-            }
 
-            cnt = 0;
-            dijks(0);
-
-            System.out.println(Arrays.toString(dist));
-            System.out.println(cnt);
-
-            return cnt;
+            return answer;
         }
     }
 
