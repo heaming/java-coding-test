@@ -12,46 +12,39 @@ public class Calculate {
     static class Solution {
         static int[][] minDp;
         static int[][] maxDp;
-        static int[] numbers;
 
         public int solution(String arr[]) {
-            int answer = -1;
             int numCnt = arr.length/2+1;
-            numbers = new int[numCnt];
-
-            for(int i=0; i<numCnt; i++) {
-                numbers[i] = Integer.parseInt(arr[i*2]);
-            }
-
-            System.out.println(Arrays.toString(numbers));
-
-
             minDp = new int[numCnt+1][numCnt+1];
             maxDp = new int[numCnt+1][numCnt+1];
 
-            for(int step=0; step<arr.length; step++) { // i, j 간격
-                for(int i=0; i<arr.length-step; i++) {
+            Arrays.stream(minDp).forEach(i -> Arrays.fill(i, Integer.MAX_VALUE));
+            Arrays.stream(maxDp).forEach(i -> Arrays.fill(i, Integer.MIN_VALUE));
+
+            for(int i=0; i<numCnt; i++) {
+                maxDp[i][i] = Integer.parseInt(arr[i*2]);
+                minDp[i][i] = Integer.parseInt(arr[i*2]);
+            }
+
+            for(int step=1; step<numCnt; step++) { // i, j 간격
+                for(int i=0; i<numCnt-step; i++) {
 
                     int j = i+step;
 
-                    if(step == 0) {
-                        minDp[i][i] = Integer.parseInt(arr[i*2]);
-                        maxDp[i][i] = Integer.parseInt(arr[i*2]);
-                    } else {
-                        for(int k=i; k<j; k++) {
-//                            if("+".equals(arr[k])) {
-////                                maxDp[i][j] = Math.min(minDp[i][j], )
-//                            }
+                    for(int k=i; k<j; k++) {
+                        if("+".equals(arr[k*2+1])) {
+                            minDp[i][j] = Math.min(minDp[i][j], minDp[i][k]+minDp[k+1][j]);
+                            maxDp[i][j] = Math.min(maxDp[i][j], maxDp[i][k]+maxDp[k+1][j]);
+                        } else {
+                            minDp[i][j] = Math.min(minDp[i][j], minDp[i][k]-maxDp[k+1][j]);
+                            maxDp[i][j] = Math.min(maxDp[i][j], maxDp[i][k]-minDp[k+1][j]);
                         }
                     }
-
-
-
                 }
             }
 
 
-            return answer;
+            return maxDp[0][numCnt-1];
         }
         public static void main(String[] args) {
             Solution solution = new Solution();
